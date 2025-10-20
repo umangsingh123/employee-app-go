@@ -18,6 +18,25 @@ type EmployeeService interface {
 	DeleteEmployee(ctx context.Context, id int64) error
 }
 
+// EmployeeService defines business methods for managing employees.
+//
+// Provides CRUD operations on Employee objects, allowing higher-level validation and logic
+// beyond simple database access.
+//
+// Methods:
+//   - CreateEmployee: Adds a new employee to the system.
+//   - UpdateEmployee: Updates an existing employee (must exist).
+//   - GetEmployee:    Fetches an employee by unique ID.
+//   - ListEmployees:  Returns all employees, ordered by ID descending.
+//   - DeleteEmployee: Removes an employee by ID (must exist).
+//
+// Implementation wraps an EmployeeDAO, surfacing application-level errors such as ErrNotFound.
+
+// ErrNotFound is returned when no employee is found for a given query.
+
+// NewEmployeeService returns a new EmployeeService with the provided EmployeeDAO;
+// this enables separation of business logic from data access logic.
+
 type employeeService struct {
 	dao dao.EmployeeDAO
 }

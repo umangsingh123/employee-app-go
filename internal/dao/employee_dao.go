@@ -27,6 +27,26 @@ func NewEmployeeDAO(db *sql.DB) EmployeeDAO {
 	return &employeeDAO{db: sqlx.NewDb(db, "sqlite3")}
 }
 
+// EmployeeDAO provides methods for CRUD operations on Employee model.
+//
+// Methods:
+//   - Create: Inserts a new employee record into the database.
+//   - Update: Updates an existing employee record.
+//   - GetByID: Retrieves an employee by their unique ID.
+//   - GetAll: Retrieves all employees from the database.
+//   - Delete: Removes an employee record by ID.
+//
+// NewEmployeeDAO constructs a new EmployeeDAO backed by a sql.DB.
+//
+/*
+Example usage:
+
+	db, err := sql.Open("sqlite3", dsn)
+	if err != nil { // handle error }
+	dao := dao.NewEmployeeDAO(db)
+	emp, err := dao.GetByID(ctx, 1)
+*/
+
 func (d *employeeDAO) Create(ctx context.Context, e *model.Employee) (*model.Employee, error) {
 	query := `INSERT INTO employees (first_name, last_name, email, position, created_at, updated_at)
               VALUES (:first_name, :last_name, :email, :position, :created_at, :updated_at)`
